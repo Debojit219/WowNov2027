@@ -35,45 +35,41 @@ a { color: inherit; }
 #entry-overlay {
     position: fixed; inset: 0; background: var(--maroon); z-index: 9999;
     display: flex; justify-content: center; align-items: center;
-    transition: opacity 1.2s ease, transform 1.2s ease, visibility 1.2s;
+    transition: opacity 0.9s ease, visibility 0.9s;
     background-image: radial-gradient(circle at center, rgba(177,138,74,0.15) 0%, transparent 70%);
+    overflow: hidden;
 }
 #entry-overlay.hidden { 
-    opacity: 0; visibility: hidden; transform: scale(1.1); pointer-events: none; 
+    opacity: 0; visibility: hidden; pointer-events: none; 
 }
 
 .envelope-wrapper {
-    /* Base size: 95% of viewport width or 85% of height, whichever safely fits */
-    --env-width: min(95vw, 85vh);
+    /* Sized so envelope + risen letter always fit on screen (portrait & landscape) */
+    --env-width: min(92vw, 80vh, 720px);
     width: var(--env-width);
     height: calc(var(--env-width) / 1.44); /* Maintains the original 360/250 aspect ratio */
     position: relative;
     perspective: 1200px;
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    will-change: transform;
 }
 .envelope-inside {
     position: absolute; inset: 0; 
     background: #2a0b13; 
     border-radius: 4px;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 20px 30px rgba(0,0,0,0.5);
 }
 .letter {
     position: absolute; bottom: 2%; left: 4%; right: 4%; height: 92%;
     background: var(--paper); border-radius: 6px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
     z-index: 1; text-align: center; border: 1px solid var(--gold);
     background-image: linear-gradient(120deg, #fffaf2 0%, #fdf5e6 100%);
 }
 .letter .mandala { font-size: calc(var(--env-width) * 0.08); color: var(--gold); margin-bottom: 3%; line-height: 1; }
 .letter h3 { color: var(--maroon); margin: 0 0 3%; font-size: calc(var(--env-width) * 0.075); font-weight: normal; }
 .letter p { color: var(--gold); font-size: calc(var(--env-width) * 0.035); letter-spacing: 2.5px; text-transform: uppercase; margin: 0; font-family: Arial, sans-serif; font-weight: bold; }
-.letter.slide-up { 
-    transform: translateY(-64%) translateZ(10px); /* Percentage-based slide up */
-    z-index: 5;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-}
 
 .envelope-flaps {
     position: absolute; inset: 0; z-index: 2; pointer-events: none;
@@ -114,11 +110,8 @@ a { color: inherit; }
 .envelope-top-flap {
     position: absolute; top: 0; left: 0; right: 0; height: 68%;
     z-index: 4; transform-origin: top; 
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-}
-.envelope-top-flap.open { 
-    transform: rotateX(180deg);
+    will-change: transform;
 }
 .flap-outside {
     position: absolute; inset: 0; backface-visibility: hidden;
@@ -130,11 +123,27 @@ a { color: inherit; }
     clip-path: polygon(0 0, 50% 98%, 100% 0);
     background: linear-gradient(to bottom, #a02845, #7d2038);
 }
+/* Back face of the flap. It is pre-flipped with rotateX(180deg), so its triangle
+   must be drawn mirrored (point at top) to line up with the front face once opened. */
 .flap-inside {
     position: absolute; inset: 0; backface-visibility: hidden;
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    background: linear-gradient(to bottom, #380d17, #1e050b);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    background: linear-gradient(to left, #d4af37, #f9f0c2, #8a6327);
     transform: rotateX(180deg);
+}
+/* Decorative gold lining with a subtle damask dot pattern */
+.flap-inside::before {
+    content: ''; position: absolute; inset: 0 0 2px 0;
+    clip-path: polygon(0 100%, 50% 2%, 100% 100%);
+    background:
+        radial-gradient(circle, rgba(104,31,50,0.22) 1.2px, transparent 1.8px) 0 0 / 14px 14px,
+        radial-gradient(circle, rgba(255,250,242,0.5) 1px, transparent 1.6px) 7px 7px / 14px 14px,
+        linear-gradient(to top, #e8d2a0, #c9a560);
+}
+/* Shading that sells the 3D turn: front darkens as it tips away, lining brightens as it faces us */
+.flap-shade {
+    position: absolute; inset: 0; z-index: 1;
+    background: #1a0509; opacity: 0; pointer-events: none;
 }
 
 .wax-seal {
@@ -391,8 +400,8 @@ footer p { font: 12px Arial, sans-serif; letter-spacing: .2em; opacity: 0.8; mar
             <div class="flap bottom-flap"></div>
         </div>
         <div class="envelope-top-flap">
-            <div class="flap-outside"></div>
-            <div class="flap-inside"></div>
+            <div class="flap-outside"><div class="flap-shade"></div></div>
+            <div class="flap-inside"><div class="flap-shade"></div></div>
             <div id="openInvitation" class="wax-seal">
                 <div class="seal-inner"><span>Open</span></div>
             </div>
@@ -428,7 +437,7 @@ footer p { font: 12px Arial, sans-serif; letter-spacing: .2em; opacity: 0.8; mar
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-zoom"></div>
-        <div class="hero-content animate-up is-visible">
+        <div class="hero-content animate-up" style="transition-delay:0.2s">
             <div class="mandala">❧ ✦ ❧</div>
             <div class="eyebrow">With the blessings of our families</div>
             <p style="font-size:18px;color:var(--muted);font-style:italic">Together with our loved ones,</p>
@@ -608,7 +617,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.animate-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.animate-up:not(.hero-content)').forEach(el => observer.observe(el));
 });
 
 // --- Mobile Menu Handler ---
@@ -629,19 +638,10 @@ const entryOverlay = document.getElementById('entry-overlay');
 const openBtn = document.getElementById('openInvitation');
 
 // Envelope Opening Sequence
-openBtn.addEventListener('click', () => {
-    // 1. Break the seal
-    openBtn.classList.add('broken');
+const wait = ms => new Promise(r => setTimeout(r, ms));
+let envelopeOpened = false;
 
-    const topFlap = document.querySelector('.envelope-top-flap');
-    const letter = document.querySelector('.letter');
-    
-    // 2. Open top flap shortly after seal breaks
-    setTimeout(() => {
-        topFlap.classList.add('open');
-    }, 200); 
-    
-    // 3. Attempt to play music
+function playMusic() {
     bgMusic.play().then(() => {
         isPlaying = true;
         musicIcon.textContent = '⏸';
@@ -651,17 +651,115 @@ openBtn.addEventListener('click', () => {
     }).catch(err => {
         console.log("Audio playback requires interaction. Check permissions.", err);
     });
+}
 
-    // 4. Slide letter up and forward
-    setTimeout(() => {
-        letter.classList.add('slide-up');
-    }, 900);
+function revealSite() {
+    entryOverlay.classList.add('hidden');
+    document.body.classList.remove('locked');
+    document.querySelector('.hero-content').classList.add('is-visible');
+    entryOverlay.addEventListener('transitionend', () => entryOverlay.remove(), { once: true });
+}
 
-    // 5. Fade out entire overlay & restore scrolling
-    setTimeout(() => {
-        entryOverlay.classList.add('hidden');
-        document.body.classList.remove('locked');
-    }, 3200);
+openBtn.addEventListener('click', async () => {
+    if (envelopeOpened) return;
+    envelopeOpened = true;
+
+    // Must be called synchronously inside the click for autoplay policies
+    playMusic();
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        revealSite();
+        return;
+    }
+
+    const wrapper = entryOverlay.querySelector('.envelope-wrapper');
+    const inside  = entryOverlay.querySelector('.envelope-inside');
+    const flaps   = entryOverlay.querySelector('.envelope-flaps');
+    const topFlap = entryOverlay.querySelector('.envelope-top-flap');
+    const letter  = entryOverlay.querySelector('.letter');
+    const ease    = 'cubic-bezier(0.45, 0, 0.2, 1)';
+
+    // 1. Break the seal, then open the top flap
+    openBtn.classList.add('broken');
+    await wait(250);
+
+    const FLAP_ANGLE = 165; // stop just short of flat so the open flap keeps a hint of 3D tilt
+    const flapOpts = { duration: 1100, easing: 'cubic-bezier(0.55, 0, 0.25, 1)', fill: 'forwards' };
+    const flapOpen = topFlap.animate(
+        [{ transform: 'rotateX(0deg)' }, { transform: `rotateX(${FLAP_ANGLE}deg)` }], flapOpts
+    );
+    // Shading keyframes share the flap's easing; offset 0.55 ≈ the moment the flap is edge-on (90°)
+    topFlap.querySelector('.flap-outside .flap-shade').animate(
+        [{ opacity: 0 }, { opacity: 0.5, offset: 0.55 }, { opacity: 0.5 }], flapOpts
+    );
+    topFlap.querySelector('.flap-inside .flap-shade').animate(
+        [{ opacity: 0.6 }, { opacity: 0.6, offset: 0.55 }, { opacity: 0 }], flapOpts
+    );
+    await flapOpen.finished;
+
+    // 2. Flap is open: tuck it behind the letter so the letter rises in front of it
+    topFlap.style.zIndex = 0;
+
+    // 3. Letter rises out of the pocket (stays behind the front flaps).
+    //    Envelope drifts down by half the rise so the composition stays centered.
+    const rise = letter.offsetHeight * 0.5;
+    wrapper.animate(
+        [{ transform: 'translateY(0)' }, { transform: `translateY(${rise / 2}px)` }],
+        { duration: 1000, easing: ease, fill: 'forwards' }
+    );
+    await letter.animate(
+        [{ transform: 'translateY(0)' }, { transform: `translateY(${-rise}px)` }],
+        { duration: 1000, easing: ease, fill: 'forwards' }
+    ).finished;
+
+    // 4. Pull the card free: the envelope first slides down until the card fully clears the
+    //    pocket, then keeps falling off-screen (fading only at the very end) while the card,
+    //    now in front, glides to center and grows to fill the screen.
+    const H    = wrapper.offsetHeight;
+    const pull = H * 0.62; // enough for the pocket's top edges to clear the card's bottom edge
+    const fall = Math.max(window.innerHeight - wrapper.getBoundingClientRect().top + 40, pull + 1);
+    const pullMs = 550, dropMs = 1500, pullAt = pullMs / dropMs;
+    const dropOpts = { duration: dropMs, fill: 'forwards' };
+    const dropFrames = (extra = '') => [
+        { transform: `translateY(0) ${extra}`, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' },
+        { transform: `translateY(${pull}px) ${extra}`, offset: pullAt, easing: 'cubic-bezier(0.5, 0, 0.9, 0.6)' },
+        { transform: `translateY(${fall}px) ${extra}` }
+    ];
+    const fadeFrames = [{ opacity: 1 }, { opacity: 1, offset: 0.7 }, { opacity: 0 }];
+    inside.animate(dropFrames(), dropOpts);
+    flaps.animate(dropFrames(), dropOpts);
+    // Only transform the 3D flap — animating its opacity would flatten it and flip the visible face
+    topFlap.animate(dropFrames(`rotateX(${FLAP_ANGLE}deg)`), dropOpts);
+    [inside, flaps, topFlap.querySelector('.flap-inside')].forEach(el => el.animate(fadeFrames, dropOpts));
+
+    await wait(pullMs);
+    letter.style.zIndex = 6; // card is clear of the pocket, so bringing it forward causes no jump
+
+    Array.from(letter.children).forEach(el =>
+        el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, delay: 150, easing: 'ease-out', fill: 'forwards' })
+    );
+    letter.animate(
+        [{ boxShadow: '0 4px 15px rgba(0,0,0,0.4)', borderColor: 'rgba(177,138,74,1)' },
+         { boxShadow: '0 0 0 rgba(0,0,0,0)', borderColor: 'rgba(177,138,74,0)' }],
+        { duration: 500, delay: 200, fill: 'forwards' }
+    );
+
+    // Measure live so it works for any viewport size / orientation
+    const r  = letter.getBoundingClientRect();
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const scale = Math.max(vw / r.width, vh / r.height) * 1.08;
+    const dx = vw / 2 - (r.left + r.width / 2);
+    const dy = vh / 2 - (r.top + r.height / 2);
+
+    letter.animate(
+        [{ transform: `translateY(${-rise}px)`, borderRadius: '6px' },
+         { transform: `translate(${dx}px, ${dy - rise}px) scale(${scale})`, borderRadius: '0px' }],
+        { duration: 1300, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' }
+    );
+    await wait(1250); // start the cross-fade just as the paper settles
+
+    // 5. Paper now fills the screen and matches the hero's ivory — cross-fade into the site
+    revealSite();
 });
 
 // Floating Music Toggle
