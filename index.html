@@ -4,6 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f0e5">
+<meta name="description" content="Aratrik & Debojit are getting married! Join us on 21 November 2027 in Durgapur, with the reception on 23 November 2027 in Kolkata.">
+<!-- Link preview. og:url / og:image must be absolute URLs — update SITE_URL here if the site is hosted elsewhere. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aratrik & Debojit">
+<meta property="og:title" content="Aratrik & Debojit · Wedding Invitation">
+<meta property="og:description" content="You're invited! 21 November 2027 · Durgapur. Tap to open your invitation.">
+<meta property="og:url" content="https://debojit219.github.io/WowNov2027/">
+<meta property="og:image" content="https://debojit219.github.io/WowNov2027/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aratrik and Debojit — Wedding Invitation, 21 November 2027, Durgapur">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aratrik & Debojit · Wedding Invitation">
+<meta name="twitter:description" content="You're invited! 21 November 2027 · Durgapur.">
+<meta name="twitter:image" content="https://debojit219.github.io/WowNov2027/og-image.jpg">
+<link rel="canonical" href="https://debojit219.github.io/WowNov2027/">
 <title>Aratrik & Debojit | Wedding Celebration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,11 +180,14 @@ a { color: inherit; }
     background: radial-gradient(circle at 35% 35%, #d13652, #8f152b 50%, #520513);
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     color: #f7f0e5; cursor: pointer; z-index: 5; 
+    border: 0; padding: 0; font: inherit; -webkit-appearance: none; appearance: none;
+    -webkit-tap-highlight-color: transparent;
     box-shadow: 0 6px 15px rgba(0,0,0,0.6), inset 0 3px 6px rgba(255,255,255,0.2);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease-out;
     backface-visibility: hidden;
 }
-.wax-seal:hover { transform: translateX(-50%) scale(1.08); box-shadow: 0 8px 20px rgba(0,0,0,0.7); }
+.wax-seal:hover, .wax-seal:focus-visible { transform: translateX(-50%) scale(1.08); box-shadow: 0 8px 20px rgba(0,0,0,0.7); }
+.wax-seal:focus-visible { outline: 2px solid #e8cb8c; outline-offset: 4px; }
 .wax-seal.broken { 
     opacity: 0; 
     transform: translateX(-50%) scale(1.4) rotate(15deg); 
@@ -335,6 +355,7 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
     box-shadow: 0 6px 18px rgba(0,0,0,0.15); border: 2px solid rgba(177, 138, 74, 0.2);
     position: relative; cursor: pointer;
 }
+.photo-wrapper picture { display: block; width: 100%; height: 100%; }
 .photo-wrapper img {
     display: block; width: 100%; height: 100%; object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -361,6 +382,12 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(104, 31, 50, 0.1); }
 .field textarea { min-height: 100px; resize: vertical; }
 .rsvp-form .btn { width: 100%; margin-top: 10px; font-size: 13px; padding: 17px; }
+.rsvp-form .btn[disabled] { opacity: .65; cursor: wait; transform: none; }
+.rsvp-status { margin: 16px 0 0; text-align: center; font-size: 19px; line-height: 1.5; color: var(--maroon); min-height: 1.5em; }
+.rsvp-status.error { color: #a3263f; font: 400 15px/1.5 var(--font-sans); }
+.rsvp-form.sent .field, .rsvp-form.sent .btn { display: none; }
+.rsvp-form.sent .rsvp-status { margin: 0; font-size: clamp(22px, 5vw, 26px); font-style: italic; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 .venues { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(16px, 3vw, 24px); }
 .venue-card {
@@ -445,7 +472,7 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
 <body class="locked">
 
 <!-- Full Screen 3D Entry Overlay -->
-<div id="entry-overlay">
+<div id="entry-overlay" role="dialog" aria-modal="true" aria-label="Wedding invitation envelope">
     <div class="envelope-wrapper">
         <div class="envelope-inside"></div>
         <div class="letter">
@@ -461,24 +488,27 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
         <div class="envelope-top-flap">
             <div class="flap-outside"><div class="flap-shade"></div></div>
             <div class="flap-inside"><div class="flap-shade"></div></div>
-            <div id="openInvitation" class="wax-seal">
-                <div class="seal-inner"><span>Open</span></div>
-            </div>
+            <button id="openInvitation" class="wax-seal" type="button" aria-label="Open the wedding invitation">
+                <span class="seal-inner" aria-hidden="true"><span>Open</span></span>
+            </button>
         </div>
     </div>
 </div>
 
 <!-- Audio Element -->
-<audio id="bgMusic" loop>
+<!-- preload="metadata": don't download the track until the guest opens the envelope.
+     AAC (~1.3 MB) first; the original MP3 is only fetched by browsers that can't play AAC. -->
+<audio id="bgMusic" loop preload="metadata">
+    <source src="webmusic.m4a" type="audio/mp4">
     <source src="webmusic.mp3" type="audio/mpeg">
 </audio>
 
 <!-- Floating Music Toggle -->
-<button id="musicToggle" class="music-btn pulse">
+<button id="musicToggle" class="music-btn pulse" type="button" inert>
     <span id="musicIcon">🎵</span> <span id="musicText">Play Sanai</span>
 </button>
 
-<header class="topbar">
+<header class="topbar" inert>
     <nav class="nav" aria-label="Main">
         <a class="brand" href="#home">A <span>&amp;</span> D</a>
         <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
@@ -494,7 +524,7 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
     </nav>
 </header>
 
-<main>
+<main inert>
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-zoom"></div>
@@ -570,10 +600,10 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
             <h2 class="animate-up">Our Gallery</h2>
             <p class="intro animate-up">A little preview of our journey together.</p>
             <div class="gallery-grid">
-                <div class="photo-wrapper animate-up"><img src="1.jpeg" alt="Aratrik and Debojit outdoors"></div>
-                <div class="photo-wrapper animate-up delay-1"><img src="2.jpeg" alt="Aratrik and Debojit at night"></div>
-                <div class="photo-wrapper animate-up"><img src="3.jpeg" alt="Aratrik and Debojit kayaking"></div>
-                <div class="photo-wrapper animate-up delay-1"><img src="4.jpeg" alt="Aratrik and Debojit looking at each other"></div>
+                <div class="photo-wrapper animate-up"><picture><source srcset="1.webp" type="image/webp"><img src="1.jpeg" alt="Aratrik and Debojit outdoors" width="750" height="1000" loading="lazy" decoding="async"></picture></div>
+                <div class="photo-wrapper animate-up delay-1"><picture><source srcset="2.webp" type="image/webp"><img src="2.jpeg" alt="Aratrik and Debojit at night" width="750" height="1000" loading="lazy" decoding="async"></picture></div>
+                <div class="photo-wrapper animate-up"><picture><source srcset="3.webp" type="image/webp"><img src="3.jpeg" alt="Aratrik and Debojit kayaking" width="1000" height="750" loading="lazy" decoding="async"></picture></div>
+                <div class="photo-wrapper animate-up delay-1"><picture><source srcset="4.webp" type="image/webp"><img src="4.jpeg" alt="Aratrik and Debojit looking at each other" width="1000" height="715" loading="lazy" decoding="async"></picture></div>
             </div>
         </div>
     </section>
@@ -607,14 +637,19 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
             <div class="section-kicker animate-up">We hope you can make it</div>
             <h2 class="animate-up">Kindly RSVP</h2>
             <p class="intro animate-up">Please let us know if you'll be joining us. Your presence will make our celebration even more special.</p>
-            <form class="rsvp-form animate-up delay-1" onsubmit="sendRSVP(event)">
+            <form class="rsvp-form animate-up delay-1" id="rsvpForm" novalidate>
+                <!-- Honeypot: hidden from people, bots tend to fill it in -->
+                <div class="hp" aria-hidden="true">
+                    <label for="website">Leave this empty</label>
+                    <input id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="field">
                     <label for="guest">Your name</label>
-                    <input id="guest" required placeholder="Full name">
+                    <input id="guest" name="name" required maxlength="120" autocomplete="name" placeholder="Full name">
                 </div>
                 <div class="field">
                     <label for="attendance">Will you attend?</label>
-                    <select id="attendance" required>
+                    <select id="attendance" name="attendance" required>
                         <option value="">Please select</option>
                         <option>Joyfully accepts for Wedding & Reception</option>
                         <option>Attending Wedding only (Durgapur)</option>
@@ -624,21 +659,22 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
                 </div>
                 <div class="field">
                     <label for="count">Number of guests</label>
-                    <select id="count">
+                    <select id="count" name="count">
                         <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
                     </select>
                 </div>
                 <div class="field">
                     <label for="message">A message for us (optional)</label>
-                    <textarea id="message" placeholder="Share your wishes..."></textarea>
+                    <textarea id="message" name="message" maxlength="1000" placeholder="Share your wishes..."></textarea>
                 </div>
-                <button class="btn" type="submit">Send RSVP via Email</button>
+                <button class="btn" type="submit" id="rsvpSubmit">Send RSVP</button>
+                <p class="rsvp-status" id="rsvpStatus" role="status" aria-live="polite"></p>
             </form>
         </div>
     </section>
 </main>
 
-<footer>
+<footer inert>
     <div class="mandala" style="color:#e8cb8c; margin-bottom: 20px;">❧ ✦ ❧</div>
     <div class="names animate-up">Aratrik & Debojit</div>
     <p class="animate-up delay-1">21 · 11 · 2027</p>
@@ -730,6 +766,7 @@ function revealSite() {
     entryOverlay.classList.add('hidden');
     document.body.classList.remove('locked');
     document.querySelector('.hero-content').classList.add('is-visible');
+    document.querySelectorAll('[inert]').forEach(el => el.removeAttribute('inert'));
     entryOverlay.addEventListener('transitionend', () => entryOverlay.remove(), { once: true });
 }
 
@@ -854,16 +891,69 @@ musicBtn.addEventListener('click', () => {
 });
 
 // --- RSVP Form Submission ---
-function sendRSVP(e) {
-    e.preventDefault();
-    const name = document.getElementById('guest').value;
-    const attendance = document.getElementById('attendance').value;
-    const count = document.getElementById('count').value;
-    const message = document.getElementById('message').value;
-    
-    const body = `Name: ${name}%0D%0AAttendance: ${attendance}%0D%0AGuests: ${count}%0D%0AMessage: ${encodeURIComponent(message)}`;
-    window.location.href = `mailto:couplesemail@example.com?subject=${encodeURIComponent('Wedding RSVP - Aratrik & Debojit')}&body=${body}`;
+// Fill in ONE of these (see README.md):
+//   endpoint — the Google Apps Script web-app URL (replies are saved to a Google Sheet; recommended)
+//   email    — fallback: opens the guest's mail app addressed to you
+const RSVP_CONFIG = {
+    endpoint: 'https://script.google.com/macros/s/AKfycbwC9XtlhIFKWNC6xo7tou2o-dEGP2IJqNElEziOvi5lq2H-qyBgkZKUmKkmYXz3Ugd-/exec',
+    email: '' // not needed while endpoint is set; the Apps Script e-mails both of us
+};
+
+const rsvpForm   = document.getElementById('rsvpForm');
+const rsvpSubmit = document.getElementById('rsvpSubmit');
+const rsvpStatus = document.getElementById('rsvpStatus');
+
+function showRsvpStatus(text, isError = false) {
+    rsvpStatus.textContent = text;
+    rsvpStatus.classList.toggle('error', isError);
 }
+
+rsvpForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!rsvpForm.reportValidity()) return;
+
+    const data = new FormData(rsvpForm);
+    const name = data.get('name').trim();
+    if (data.get('website')) return; // bot
+
+    if (RSVP_CONFIG.endpoint) {
+        rsvpSubmit.disabled = true;
+        rsvpSubmit.textContent = 'Sending…';
+        showRsvpStatus('');
+        try {
+            // Form-encoded body = "simple" CORS request (no preflight). A public Apps Script web app
+            // answers with Access-Control-Allow-Origin: *, so we can read its {ok:true} reply and
+            // never show "thank you" for an RSVP that didn't actually reach the sheet.
+            const res = await fetch(RSVP_CONFIG.endpoint, { method: 'POST', body: new URLSearchParams(data) });
+            const reply = await res.json().catch(() => ({}));
+            if (!res.ok || !reply.ok) throw new Error(`RSVP endpoint replied ${res.status}`);
+            rsvpForm.classList.add('sent');
+            showRsvpStatus(`Thank you, ${name}! We've received your RSVP. ❧`);
+        } catch (err) {
+            console.error('RSVP failed', err);
+            showRsvpStatus("Sorry, we couldn't send that. Please check your connection and try again.", true);
+        } finally {
+            rsvpSubmit.disabled = false;
+            rsvpSubmit.textContent = 'Send RSVP';
+        }
+        return;
+    }
+
+    if (RSVP_CONFIG.email) {
+        const body = [
+            `Name: ${name}`,
+            `Attendance: ${data.get('attendance')}`,
+            `Guests: ${data.get('count')}`,
+            `Message: ${data.get('message') || '-'}`
+        ].join('\r\n');
+        window.location.href = `mailto:${RSVP_CONFIG.email}?subject=${encodeURIComponent('Wedding RSVP - ' + name)}&body=${encodeURIComponent(body)}`;
+        showRsvpStatus('Your mail app should open with your RSVP — just press send. ❧');
+        return;
+    }
+
+    console.warn('RSVP_CONFIG has no endpoint or email set.');
+    showRsvpStatus("RSVPs aren't open just yet — please message us directly. Sorry!", true);
+});
 </script>
 </body>
 </html>
