@@ -24,7 +24,7 @@
 <title>Aratrik & Debojit | Wedding Celebration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Parisienne&family=Jost:wght@400;500&family=Noto+Serif+Bengali:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Parisienne&family=Jost:wght@400;500&family=Galada&display=swap">
 <style>
 /* --- Theme Variables --- */
 :root {
@@ -41,7 +41,8 @@
     --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --font-script: 'Parisienne', 'Cormorant Garamond', cursive;
     --font-sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
-    --font-bengali: 'Noto Serif Bengali', 'Cormorant Garamond', serif;
+    --font-bengali: 'Galada', serif; /* only for the শুভ বিবাহ heading */
+    --font-monogram: 'Parisienne', cursive; /* Latin "A & D" monogram stays the same in every language */
 }
 
 * { box-sizing: border-box; }
@@ -97,6 +98,8 @@ a { color: inherit; }
 }
 .letter .mandala { font-size: calc(var(--env-width) * 0.08); color: var(--gold); margin-bottom: 3%; line-height: 1; }
 .letter h3 { color: var(--maroon); margin: 0 0 3%; font-family: var(--font-script); font-size: calc(var(--env-width) * 0.1); font-weight: 400; line-height: 1.1; }
+.letter-greeting { margin: 0 0 3%; color: var(--maroon); font-family: var(--font-serif); font-style: italic; font-size: calc(var(--env-width) * 0.05); line-height: 1.2; padding: 0 6%; }
+.letter-greeting .g-line { display: block; margin-top: 2%; font: 500 calc(var(--env-width) * 0.026)/1.3 var(--font-sans); font-style: normal; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .letter p { color: var(--gold); font-size: calc(var(--env-width) * 0.032); letter-spacing: .28em; text-transform: uppercase; margin: 0; font-family: var(--font-sans); font-weight: 500; }
 
 .envelope-flaps {
@@ -217,7 +220,7 @@ a { color: inherit; }
     padding: 0 clamp(16px, 4vw, 24px);
     display: flex; justify-content: space-between; align-items: center;
 }
-.brand { font-family: var(--font-script); font-size: 32px; line-height: 1; color: var(--maroon); text-decoration: none; }
+.brand { font-family: var(--font-monogram); font-size: 32px; line-height: 1; color: var(--maroon); text-decoration: none; }
 .brand span { color: var(--gold); }
 .navlinks { display: flex; gap: clamp(16px, 2.5vw, 30px); font: 500 12px/1 var(--font-sans); letter-spacing: .18em; text-transform: uppercase; }
 .navlinks a { text-decoration: none; transition: color 0.3s; position: relative; }
@@ -227,6 +230,9 @@ a { color: inherit; }
     background-color: var(--gold); transition: width 0.3s ease;
 }
 .navlinks a:hover::after { width: 100%; }
+
+.nav-actions { display: flex; align-items: center; gap: clamp(14px, 2.5vw, 28px); }
+.hero-greeting { font-family: var(--font-script); color: var(--gold); font-size: clamp(30px, 7vw, 44px); line-height: 1.2; margin: 6px 0 0; }
 
 /* Hamburger (mobile only) — three bars that morph into an X */
 .menu-toggle {
@@ -315,7 +321,7 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
 /* --- Countdown --- */
 .countdown { background: var(--maroon); color: #fff8ed; padding: clamp(60px, 10vw, 80px) clamp(14px, 4vw, 22px); text-align: center; background-image: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%); }
 .countdown h2 { color: #fff8ed; }
-.bengali { font-family: var(--font-bengali); font-weight: 500; font-size: clamp(30px, 7vw, 48px); line-height: 1.4; }
+.bengali { font-family: var(--font-bengali); font-weight: 400; font-size: clamp(30px, 7vw, 48px); line-height: 1.4; }
 .timer { display: grid; grid-template-columns: repeat(4, minmax(0, 130px)); justify-content: center; gap: clamp(8px, 3vw, 32px); margin: clamp(24px, 5vw, 40px) auto 0; }
 .timebox { background: rgba(0,0,0,0.2); padding: clamp(14px, 3vw, 22px) 4px; border-radius: 12px; border: 1px solid rgba(232, 203, 140, 0.2); backdrop-filter: blur(5px); }
 .timebox strong { display: block; font-size: clamp(32px, 8.5vw, 64px); font-weight: 500; line-height: 1; color: #e8cb8c; margin-bottom: 8px; font-variant-numeric: tabular-nums lining-nums; }
@@ -331,7 +337,7 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
 }
 .story-card::before { content: "❧"; position: absolute; top: 15px; left: 20px; color: var(--gold); opacity: 0.3; font-size: 24px; }
 .story-card::after { content: "❧"; position: absolute; bottom: 15px; right: 20px; color: var(--gold); opacity: 0.3; font-size: 24px; transform: rotate(180deg); }
-.story-card .initials { font-family: var(--font-script); font-size: clamp(52px, 13vw, 68px); line-height: 1.1; color: var(--gold); margin-bottom: 12px; }
+.story-card .initials { font-family: var(--font-monogram); font-size: clamp(52px, 13vw, 68px); line-height: 1.1; color: var(--gold); margin-bottom: 12px; }
 .story-card p { font-size: clamp(18px, 4.4vw, 21px); }
 
 .events { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(16px, 3vw, 24px); }
@@ -344,8 +350,24 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
 .event .symbol { font-size: 32px; color: var(--gold); margin-bottom: 12px; display: inline-block; animation: float 4s ease-in-out infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .event h3 { color: var(--maroon); font-size: clamp(27px, 6vw, 32px); font-weight: 500; line-height: 1.2; margin: 0 0 10px; }
-.event p { font: 400 clamp(15px, 3.8vw, 16px)/1.7 var(--font-sans); color: var(--muted); margin: 0; }
-.event b { color: var(--ink); font-weight: 500; display: block; margin-top: 12px; letter-spacing: .02em; }
+.event-desc { font: 400 clamp(15px, 3.8vw, 16px)/1.7 var(--font-sans); color: var(--muted); margin: 0 0 18px; }
+.event-meta {
+    display: grid; gap: 10px; text-align: left; max-width: 320px; margin: 0 auto;
+    padding-top: 18px; border-top: 1px dashed rgba(177, 138, 74, 0.4);
+    font: 400 14.5px/1.5 var(--font-sans); color: var(--ink);
+}
+.meta-row { display: flex; gap: 10px; align-items: flex-start; }
+.meta-ico { flex: none; width: 20px; text-align: center; color: var(--gold); line-height: 1.5; }
+.meta-row .tba { color: var(--muted); font-style: italic; }
+.cal-actions { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.cal-label { width: 100%; font: 500 11px/1 var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+.chip {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 36px;
+    font: 500 12.5px/1 var(--font-sans); letter-spacing: .04em; padding: 0 14px; border-radius: 20px;
+    border: 1px solid rgba(177, 138, 74, 0.7); background: transparent; color: var(--maroon);
+    cursor: pointer; text-decoration: none; transition: background .25s, color .25s, border-color .25s;
+}
+.chip:hover, .chip:focus-visible { background: var(--maroon); color: #fff8ed; border-color: var(--maroon); outline: none; }
 
 /* --- Gallery --- */
 .gallery { background: var(--paper); }
@@ -395,7 +417,14 @@ h2 { text-align: center; color: var(--maroon); font-weight: 500; font-size: clam
     background: #fffaf2; border-radius: var(--border-radius); box-shadow: var(--shadow);
 }
 .venue-card h3 { font-weight: 500; color: var(--maroon); font-size: clamp(27px, 6vw, 32px); line-height: 1.2; margin: 10px 0 6px; }
-.venue-card .place { color: var(--muted); font: 500 14px/1.6 var(--font-sans); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 24px; }
+.venue-card .venue-name { color: var(--ink); font-size: clamp(19px, 4.6vw, 21px); font-weight: 500; margin: 0; }
+.venue-card .place { color: var(--muted); font: 500 13px/1.6 var(--font-sans); letter-spacing: .1em; text-transform: uppercase; margin: 2px 0 18px; }
+.venue-map {
+    position: relative; aspect-ratio: 16 / 10; margin: 0 0 22px; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(177, 138, 74, 0.4); background: #efe3d5;
+}
+.venue-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: sepia(0.2) saturate(0.9); }
+.venue-card .btn + .btn { margin-left: 8px; }
 
 /* --- Footer --- */
 footer { text-align: center; background: var(--maroon); color: #f6e9d4; padding: clamp(48px, 9vw, 64px) 20px calc(clamp(48px, 9vw, 64px) + env(safe-area-inset-bottom)); position: relative; overflow: hidden; }
@@ -423,7 +452,7 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
     100% { box-shadow: 0 0 0 0 rgba(177, 138, 74, 0); }
 }
 .music-btn::before {
-    content: "Click to play music"; position: absolute; right: 100%; top: 50%;
+    content: attr(data-tip); position: absolute; right: 100%; top: 50%;
     transform: translateY(-50%); margin-right: 12px; background: var(--paper);
     color: var(--maroon); padding: 6px 10px; border-radius: 4px; font: 500 11px/1.2 var(--font-sans);
     white-space: nowrap; border: 1px solid var(--gold); opacity: 1; transition: opacity 0.3s;
@@ -443,6 +472,7 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
     :root { --nav-h: 58px; }
     .brand { font-size: 28px; }
     .menu-toggle { display: block; }
+    .nav-actions { gap: 6px; }
     .navlinks {
         position: absolute; top: 100%; left: 0; right: 0;
         flex-direction: column; gap: 0; text-align: center;
@@ -477,6 +507,7 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
         <div class="envelope-inside"></div>
         <div class="letter">
             <div class="mandala">❧</div>
+            <div class="letter-greeting" id="letterGreeting" hidden></div>
             <h3>Aratrik & Debojit</h3>
             <p>Wedding Invitation</p>
         </div>
@@ -504,22 +535,24 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
 </audio>
 
 <!-- Floating Music Toggle -->
-<button id="musicToggle" class="music-btn pulse" type="button" inert>
+<button id="musicToggle" class="music-btn pulse" type="button" data-tip="Click to play music" inert>
     <span id="musicIcon">🎵</span> <span id="musicText">Play Sanai</span>
 </button>
 
 <header class="topbar" inert>
     <nav class="nav" aria-label="Main">
         <a class="brand" href="#home">A <span>&amp;</span> D</a>
-        <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-        </button>
-        <div class="navlinks" id="navLinks">
-            <a href="#story" onclick="closeMenu()">Our Story</a>
-            <a href="#events" onclick="closeMenu()">Celebrations</a>
-            <a href="#gallery" onclick="closeMenu()">Gallery</a>
-            <a href="#venue" onclick="closeMenu()">Venue</a>
-            <a href="#rsvp" onclick="closeMenu()">RSVP</a>
+        <div class="nav-actions">
+            <div class="navlinks" id="navLinks">
+                <a href="#story" onclick="closeMenu()">Our Story</a>
+                <a href="#events" onclick="closeMenu()">Celebrations</a>
+                <a href="#gallery" onclick="closeMenu()">Gallery</a>
+                <a href="#venue" onclick="closeMenu()">Venue</a>
+                <a href="#rsvp" onclick="closeMenu()">RSVP</a>
+            </div>
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
         </div>
     </nav>
 </header>
@@ -530,9 +563,10 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
         <div class="hero-zoom"></div>
         <div class="hero-content animate-up" style="transition-delay:0.2s">
             <div class="mandala">❧ ✦ ❧</div>
+            <p class="hero-greeting" id="heroGreeting" hidden></p>
             <div class="eyebrow">With the blessings of our families</div>
             <p class="lead">Together with our loved ones,</p>
-            <h1>Aratrik<br><span class="amp">&</span><br>Debojit</h1>
+            <h1>Aratrik<br><span class="amp">&amp;</span><br>Debojit</h1>
             <div class="ornament"></div>
             <p class="tagline">A beautiful beginning to our forever</p>
             <div class="date-line">21 NOVEMBER 2027 · DURGAPUR</div>
@@ -569,28 +603,8 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
             <div class="section-kicker animate-up">Save the dates</div>
             <h2 class="animate-up">Wedding Celebrations</h2>
             <p class="intro animate-up">A few days of traditions, laughter, music and memories. We would love to have you with us.</p>
-            <div class="events">
-                <div class="event animate-up delay-1">
-                    <div class="symbol">❀</div>
-                    <h3>Aiburo Bhaat</h3>
-                    <p>A day of blessings, delicious food and family traditions.<br><b>Date & time to be announced</b></p>
-                </div>
-                <div class="event animate-up delay-2">
-                    <div class="symbol">✿</div>
-                    <h3>Gaye Holud</h3>
-                    <p>Haldi, happy faces and a splash of sunshine.<br><b>Date & time to be announced</b></p>
-                </div>
-                <div class="event animate-up delay-1">
-                    <div class="symbol">❧</div>
-                    <h3>Shubho Bibaho</h3>
-                    <p>The day we begin our forever.<br><b>21 November 2027 · Durgapur</b></p>
-                </div>
-                <div class="event animate-up delay-2">
-                    <div class="symbol">✦</div>
-                    <h3>Reception</h3>
-                    <p>An evening of celebration with our favourite people.<br><b>23 November 2027 · Kolkata</b></p>
-                </div>
-            </div>
+            <!-- Cards are rendered from the EVENTS config in the script (edit dates and times there) -->
+            <div class="events" id="eventsGrid"></div>
         </div>
     </section>
 
@@ -612,21 +626,30 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
         <div class="wrap">
             <div class="section-kicker animate-up">Find your way to us</div>
             <h2 class="animate-up">Wedding Venues</h2>
-            
+
             <div class="venues">
                 <div class="venue-card animate-up delay-1">
                     <div class="mandala">⌖</div>
                     <h3>Wedding</h3>
+                    <p class="venue-name">City Tower Banquet Hall</p>
                     <p class="place">Durgapur, West Bengal</p>
-                
-                    <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/place/City+Tower+Banquet+Hall/@23.5347974,87.3393043,17z/data=!3m1!4b1!4m6!3m5!1s0x39f7717f4a2037b3:0x415c849af85d9b1!8m2!3d23.5347974!4d87.3393043!16s%2Fg%2F11yls6hmqy?entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D">Map</a>
+                    <div class="venue-map">
+                        <iframe title="Map of City Tower Banquet Hall, Durgapur" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+                            src="https://maps.google.com/maps?q=City%20Tower%20Banquet%20Hall%2C%20Durgapur&amp;ll=23.5347974,87.3393043&amp;z=15&amp;output=embed"></iframe>
+                    </div>
+                    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=23.5347974,87.3393043">Get directions</a>
                 </div>
-                
+
                 <div class="venue-card animate-up delay-2">
                     <div class="mandala">✧</div>
                     <h3>Reception</h3>
-                    <p class="place">Kolkata, West Bengal</p>
-                    <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Shiv+Shakti+Garden/@22.6810793,88.4547077,19z/data=!4m16!1m9!4m8!1m0!1m6!1m2!1s0x39f89f1845f12ccf:0x482b536dc8bde53e!2sShiv+Shakti+Garden,+305,+Jessore+Rd,+near+B.T.+College,+Madhyamgram+Municipality+Ward+19,+Bidhanpally,+Madhyamgram,+Kolkata,+West+Bengal+700132!2m2!1d88.4559544!2d22.6804546!3m5!1s0x39f89f1845f12ccf:0x482b536dc8bde53e!8m2!3d22.6804546!4d88.4559544!16s%2Fg%2F11xvp_j5f7?entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D">Map</a>
+                    <p class="venue-name">Shiv Shakti Garden</p>
+                    <p class="place">Madhyamgram, Kolkata</p>
+                    <div class="venue-map">
+                        <iframe title="Map of Shiv Shakti Garden, Madhyamgram, Kolkata" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+                            src="https://maps.google.com/maps?q=Shiv%20Shakti%20Garden%2C%20Jessore%20Rd%2C%20Madhyamgram&amp;ll=22.6804546,88.4559544&amp;z=15&amp;output=embed"></iframe>
+                    </div>
+                    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=22.6804546,88.4559544">Get directions</a>
                 </div>
             </div>
         </div>
@@ -650,17 +673,18 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
                 <div class="field">
                     <label for="attendance">Will you attend?</label>
                     <select id="attendance" name="attendance" required>
+                        <!-- Values stay in English so the sheet is consistent whatever language the guest uses -->
                         <option value="">Please select</option>
-                        <option>Joyfully accepts for Wedding & Reception</option>
-                        <option>Attending Wedding only (Durgapur)</option>
-                        <option>Attending Reception only (Kolkata)</option>
-                        <option>Regretfully declines</option>
+                        <option value="Joyfully accepts for Wedding & Reception">Joyfully accepts for Wedding & Reception</option>
+                        <option value="Attending Wedding only (Durgapur)">Attending Wedding only (Durgapur)</option>
+                        <option value="Attending Reception only (Kolkata)">Attending Reception only (Kolkata)</option>
+                        <option value="Regretfully declines">Regretfully declines</option>
                     </select>
                 </div>
                 <div class="field">
                     <label for="count">Number of guests</label>
                     <select id="count" name="count">
-                        <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5+">5+</option>
                     </select>
                 </div>
                 <div class="field">
@@ -682,6 +706,186 @@ footer p { font: 500 12px/1.6 var(--font-sans); letter-spacing: .25em; opacity: 
 </footer>
 
 <script>
+// =====================================================================
+//  EVENT DETAILS — edit here. Everything on the cards (and the calendar
+//  invites) is generated from this list.
+//    date:  'YYYY-MM-DD' (or null → "Date & time to be announced", no calendar button)
+//    start / end: 'HH:MM' 24h India time (or null → all-day invite, "Time to be announced")
+//    venue: key in VENUES (or null)
+//  Names and descriptions live in STRINGS below (ev_<id>_name / ev_<id>_desc).
+// =====================================================================
+const EVENTS = [
+    { id: 'aiburo',    symbol: '❀', date: null,         start: null, end: null, venue: null },
+    { id: 'holud',     symbol: '✿', date: null,         start: null, end: null, venue: null },
+    { id: 'wedding',   symbol: '❧', date: '2027-11-21', start: null, end: null, venue: 'durgapur' },
+    { id: 'reception', symbol: '✦', date: '2027-11-23', start: null, end: null, venue: 'kolkata' },
+];
+const VENUES = {
+    durgapur: { name: 'City Tower Banquet Hall', address: 'Durgapur, West Bengal, India' },
+    kolkata:  { name: 'Shiv Shakti Garden', address: '305 Jessore Rd, Madhyamgram, Kolkata, West Bengal 700132, India' },
+};
+
+// Text used by the script (cards, calendar invites, RSVP/music messages)
+const STRINGS = {
+    names: 'Aratrik & Debojit',
+    greetDear: 'Dear {name},', greetLine: "you're warmly invited to the wedding of",
+    heroGreet: 'Dear {name},',
+    menuOpen: 'Open menu', menuClose: 'Close menu',
+    ev_aiburo_name: 'Aiburo Bhaat', ev_aiburo_desc: 'A day of blessings, delicious food and family traditions.',
+    ev_holud_name: 'Gaye Holud', ev_holud_desc: 'Haldi, happy faces and a splash of sunshine.',
+    ev_wedding_name: 'Shubho Bibaho', ev_wedding_desc: 'The day we begin our forever.',
+    ev_reception_name: 'Reception', ev_reception_desc: 'An evening of celebration with our favourite people.',
+    dateTba: 'Date & time to be announced', timeTba: 'Time to be announced',
+    addCal: 'Add to calendar', calGoogle: 'Google Calendar', calIcs: 'Apple / Outlook',
+    calDetails: 'Aratrik & Debojit — we would love to celebrate with you!',
+    vDurgapurName: 'City Tower Banquet Hall', vDurgapurShort: 'City Tower Banquet Hall, Durgapur',
+    vKolkataName: 'Shiv Shakti Garden', vKolkataShort: 'Shiv Shakti Garden, Kolkata',
+    fSend: 'Send RSVP', fSending: 'Sending…',
+    rsvpThanks: "Thank you, {name}! We've received your RSVP. ❧",
+    rsvpError: "Sorry, we couldn't send that. Please check your connection and try again.",
+    rsvpMail: 'Your mail app should open with your RSVP — just press send. ❧',
+    rsvpClosed: "RSVPs aren't open just yet — please message us directly. Sorry!",
+    musicPlay: 'Play Sanai', musicPause: 'Pause', musicTip: 'Click to play music',
+};
+const t = (key, vars = {}) => (STRINGS[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+const params = new URLSearchParams(location.search);
+
+// --- Personal greeting: share links like ?guest=Rahul%20Da ---
+// Only ever inserted with textContent, never as HTML.
+const guestName = (params.get('guest') || params.get('to') || '')
+    .replace(/[\u0000-\u001f\u007f<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, 40);
+
+function renderGreeting() {
+    const letterGreeting = document.getElementById('letterGreeting');
+    const heroGreeting = document.getElementById('heroGreeting');
+    if (!guestName) return;
+    letterGreeting.textContent = t('greetDear', { name: guestName });
+    const line = document.createElement('span');
+    line.className = 'g-line';
+    line.textContent = t('greetLine');
+    letterGreeting.append(line);
+    letterGreeting.hidden = false;
+    heroGreeting.textContent = t('heroGreet', { name: guestName });
+    heroGreeting.hidden = false;
+}
+
+// --- Event cards + calendar invites ---
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}`;
+const utcStamp = d => `${ymd(d)}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
+
+function eventTimes(ev) {
+    if (!ev.start) {
+        const day = new Date(`${ev.date}T00:00:00Z`);
+        const next = new Date(day.getTime() + 864e5);
+        return { allDay: true, start: day, end: next };
+    }
+    const start = new Date(`${ev.date}T${ev.start}:00+05:30`);
+    const end = ev.end ? new Date(`${ev.date}T${ev.end}:00+05:30`) : new Date(start.getTime() + 3 * 36e5);
+    if (end <= start) end.setTime(end.getTime() + 864e5); // ends after midnight
+    return { allDay: false, start, end };
+}
+
+function calendarInfo(ev) {
+    const v = ev.venue && VENUES[ev.venue];
+    const venueKey = ev.venue === 'durgapur' ? 'vDurgapurName' : 'vKolkataName';
+    return {
+        title: `${t(`ev_${ev.id}_name`)} — ${t('names')}`,
+        location: v ? `${t(venueKey)}, ${v.address}` : '',
+        details: `${t('calDetails')}\n${location.origin}${location.pathname}`,
+    };
+}
+
+function googleCalendarUrl(ev) {
+    const { allDay, start, end } = eventTimes(ev);
+    const info = calendarInfo(ev);
+    const dates = allDay ? `${ymd(start)}/${ymd(end)}` : `${utcStamp(start)}/${utcStamp(end)}`;
+    const q = new URLSearchParams({ action: 'TEMPLATE', text: info.title, dates, details: info.details, location: info.location, ctz: 'Asia/Kolkata' });
+    return `https://calendar.google.com/calendar/render?${q}`;
+}
+
+function downloadIcs(ev) {
+    const { allDay, start, end } = eventTimes(ev);
+    const info = calendarInfo(ev);
+    const esc = s => s.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
+    const lines = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Aratrik & Debojit//Wedding//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        `UID:${ev.id}-${ev.date}@aratrik-debojit-wedding`,
+        `DTSTAMP:${utcStamp(new Date())}`,
+        allDay ? `DTSTART;VALUE=DATE:${ymd(start)}` : `DTSTART:${utcStamp(start)}`,
+        allDay ? `DTEND;VALUE=DATE:${ymd(end)}` : `DTEND:${utcStamp(end)}`,
+        `SUMMARY:${esc(info.title)}`,
+        info.location && `LOCATION:${esc(info.location)}`,
+        `DESCRIPTION:${esc(info.details)}`,
+        'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', `DESCRIPTION:${esc(info.title)}`, 'END:VALARM',
+        'END:VEVENT', 'END:VCALENDAR',
+    ].filter(Boolean);
+    const blob = new Blob([lines.join('\r\n') + '\r\n'], { type: 'text/calendar;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${ev.id}-aratrik-debojit.ics`;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function el(tag, attrs = {}, ...children) {
+    const node = document.createElement(tag);
+    Object.entries(attrs).forEach(([k, v]) => k === 'class' ? node.className = v : node.setAttribute(k, v));
+    node.append(...children.filter(c => c != null));
+    return node;
+}
+
+function renderEvents() {
+    const grid = document.getElementById('eventsGrid');
+    grid.replaceChildren(...EVENTS.map((ev, i) => {
+        const meta = el('div', { class: 'event-meta' });
+        // When
+        let when;
+        if (!ev.date) {
+            when = el('span', { class: 'tba' }, t('dateTba'));
+        } else {
+            const dateStr = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata' })
+                .format(new Date(`${ev.date}T12:00:00+05:30`));
+            let timeStr;
+            if (ev.start) {
+                const tf = new Intl.DateTimeFormat('en-IN', { hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' });
+                const { start, end } = eventTimes(ev);
+                timeStr = ev.end ? `${tf.format(start)} – ${tf.format(end)}` : tf.format(start);
+            }
+            when = el('span', {}, dateStr, ' · ', timeStr ? timeStr : el('span', { class: 'tba' }, t('timeTba')));
+        }
+        meta.append(el('div', { class: 'meta-row' }, el('span', { class: 'meta-ico', 'aria-hidden': 'true' }, '◷'), when));
+        // Where
+        if (ev.venue) {
+            const key = ev.venue === 'durgapur' ? 'vDurgapurShort' : 'vKolkataShort';
+            meta.append(el('div', { class: 'meta-row' }, el('span', { class: 'meta-ico', 'aria-hidden': 'true' }, '⌖'), el('span', {}, t(key))));
+        }
+
+        const card = el('div', { class: `event animate-up delay-${(i % 2) + 1}` },
+            el('div', { class: 'symbol', 'aria-hidden': 'true' }, ev.symbol),
+            el('h3', {}, t(`ev_${ev.id}_name`)),
+            el('p', { class: 'event-desc' }, t(`ev_${ev.id}_desc`)),
+            meta);
+
+        if (ev.date) {
+            const ics = el('button', { type: 'button', class: 'chip' }, '⤓ ', t('calIcs'));
+            ics.addEventListener('click', () => downloadIcs(ev));
+            card.append(el('div', { class: 'cal-actions' },
+                el('span', { class: 'cal-label' }, t('addCal')),
+                el('a', { class: 'chip', href: googleCalendarUrl(ev), target: '_blank', rel: 'noopener' }, '+ ', t('calGoogle')),
+                ics));
+        }
+        return card;
+    }));
+}
+
+renderGreeting();
+renderEvents();
+if (guestName) document.getElementById('guest').value = guestName; // pre-fill the RSVP form
+
 // --- Countdown Timer ---
 const weddingDate = new Date('2027-11-21T00:00:00+05:30').getTime();
 
@@ -695,9 +899,9 @@ function tick() {
     }
     
     document.getElementById('days').textContent = Math.floor(d / (1000 * 60 * 60 * 24));
-    document.getElementById('hours').textContent = String(Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(Math.floor((d % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(Math.floor((d % (1000 * 60)) / 1000)).padStart(2, '0');
+    document.getElementById('hours').textContent = pad(Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    document.getElementById('minutes').textContent = pad(Math.floor((d % (1000 * 60 * 60)) / (1000 * 60)));
+    document.getElementById('seconds').textContent = pad(Math.floor((d % (1000 * 60)) / 1000));
 }
 tick();
 setInterval(tick, 1000);
@@ -724,7 +928,7 @@ const navLinks = document.getElementById('navLinks');
 function setMenu(open) {
     navLinks.classList.toggle('open', open);
     menuToggle.setAttribute('aria-expanded', String(open));
-    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menuToggle.setAttribute('aria-label', t(open ? 'menuClose' : 'menuOpen'));
 }
 function closeMenu() { setMenu(false); }
 
@@ -750,11 +954,16 @@ const openBtn = document.getElementById('openInvitation');
 const wait = ms => new Promise(r => setTimeout(r, ms));
 let envelopeOpened = false;
 
+function updateMusicLabel() {
+    musicIcon.textContent = isPlaying ? '⏸' : '🎵';
+    musicText.textContent = t(isPlaying ? 'musicPause' : 'musicPlay');
+    musicBtn.dataset.tip = t('musicTip');
+}
+
 function playMusic() {
     bgMusic.play().then(() => {
         isPlaying = true;
-        musicIcon.textContent = '⏸';
-        musicText.textContent = 'Pause';
+        updateMusicLabel();
         musicBtn.classList.add('interacted');
         musicBtn.classList.remove('pulse');
     }).catch(err => {
@@ -880,14 +1089,11 @@ musicBtn.addEventListener('click', () => {
     if (isPlaying) {
         bgMusic.pause();
         isPlaying = false;
-        musicIcon.textContent = '🎵';
-        musicText.textContent = 'Play Sanai';
     } else {
         bgMusic.play();
         isPlaying = true;
-        musicIcon.textContent = '⏸';
-        musicText.textContent = 'Pause';
     }
+    updateMusicLabel();
 });
 
 // --- RSVP Form Submission ---
@@ -918,7 +1124,7 @@ rsvpForm.addEventListener('submit', async e => {
 
     if (RSVP_CONFIG.endpoint) {
         rsvpSubmit.disabled = true;
-        rsvpSubmit.textContent = 'Sending…';
+        rsvpSubmit.textContent = t('fSending');
         showRsvpStatus('');
         try {
             // Form-encoded body = "simple" CORS request (no preflight). A public Apps Script web app
@@ -928,13 +1134,13 @@ rsvpForm.addEventListener('submit', async e => {
             const reply = await res.json().catch(() => ({}));
             if (!res.ok || !reply.ok) throw new Error(`RSVP endpoint replied ${res.status}`);
             rsvpForm.classList.add('sent');
-            showRsvpStatus(`Thank you, ${name}! We've received your RSVP. ❧`);
+            showRsvpStatus(t('rsvpThanks', { name }));
         } catch (err) {
             console.error('RSVP failed', err);
-            showRsvpStatus("Sorry, we couldn't send that. Please check your connection and try again.", true);
+            showRsvpStatus(t('rsvpError'), true);
         } finally {
             rsvpSubmit.disabled = false;
-            rsvpSubmit.textContent = 'Send RSVP';
+            rsvpSubmit.textContent = t('fSend');
         }
         return;
     }
@@ -947,13 +1153,15 @@ rsvpForm.addEventListener('submit', async e => {
             `Message: ${data.get('message') || '-'}`
         ].join('\r\n');
         window.location.href = `mailto:${RSVP_CONFIG.email}?subject=${encodeURIComponent('Wedding RSVP - ' + name)}&body=${encodeURIComponent(body)}`;
-        showRsvpStatus('Your mail app should open with your RSVP — just press send. ❧');
+        showRsvpStatus(t('rsvpMail'));
         return;
     }
 
     console.warn('RSVP_CONFIG has no endpoint or email set.');
-    showRsvpStatus("RSVPs aren't open just yet — please message us directly. Sorry!", true);
+    showRsvpStatus(t('rsvpClosed'), true);
 });
+
+updateMusicLabel();
 </script>
 </body>
 </html>

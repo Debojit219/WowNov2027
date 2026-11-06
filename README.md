@@ -3,6 +3,26 @@
 Wedding invitation site for Aratrik & Debojit. A single static page (`index.html`). On GitHub Pages it is served at
 https://debojit219.github.io/WowNov2027/
 
+## Personal invite links
+
+Add `?guest=` to the link and the envelope card, the top of the page and the RSVP name field will greet that person by name:
+
+- https://debojit219.github.io/WowNov2027/?guest=Rahul%20Da
+- https://debojit219.github.io/WowNov2027/?guest=Mashi%20%26%20Meso (`%26` = `&`, `%20` = space)
+
+## Event details and times
+
+At the top of the `<script>` in `index.html` there is an `EVENTS` list. Edit it to fill in the details:
+
+```js
+{ id: 'holud', symbol: '✿', date: '2027-11-21', start: '09:00', end: '12:00', venue: null },
+```
+
+- `date: null` shows "Date & time to be announced" and hides the calendar buttons.
+- With a `date` but `start: null`, the card shows "Time to be announced" and the calendar invite is an all-day event.
+- Times are in India time (IST). Calendar invites convert them correctly for guests in other time zones.
+- Event names and descriptions are in `STRINGS` (keys `ev_<id>_name` and `ev_<id>_desc`).
+
 ## RSVP setup (Google Sheet, ~5 minutes)
 
 1. Open the RSVP sheet: https://docs.google.com/spreadsheets/d/1AT_S2yqkLioWmDB-2KjbB4R_rvf8i_HwhOPMuhNNpTc/edit#gid=1875938154
